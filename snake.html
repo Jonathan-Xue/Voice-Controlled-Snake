@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<link rel="shortcut icon" href="res/mainIcon.png" />
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Snake</title>
+	<!--JQuery API: https://api.jquery.com/--><script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--Annyang API Used For Speech Recognition: https://www.talater.com/annyang--><script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script> 
+	<!--p5min.js Used For HTML/CSS/JS Graphics: https://p5js.org/--><script type="text/javascript" src="lib/p5min.js"></script>
+	<script type="text/javascript" src="js/Snake.js"></script>
+	<script type="text/javascript" src="js/TileSnake.js"></script>
+	<script type="text/javascript" src="js/Food.js"></script>
+
+</head>
+
+<style type="text/css">
+	body {
+		padding: 0;
+		margin: 0;
+		overflow: hidden;
+	}
+</style>
+
+<body>
+	<!--Annang API-->
+	<script>
+		//Speech Recognition
+		annyang.start({ autoRestart: true, continuous: false });
+		annyang.setLanguage('en');
+		if (annyang) {
+			/*var commands = {
+				'up': function() {snake.setDirection(0, -1);},
+				'down': function() {snake.setDirection(0, 1);},
+				'left': function() {snake.setDirection(-1, 0);},
+				'right': function() {snake.setDirection(1, 0);}
+			};
+			annyang.addCommands(commands);*/
+			annyang.addCallback('result', function(phrases) { //Debug
+				console.log(phrases);
+				for(i = 0; i < phrases.length; i++){
+					if(phrases[i].toLowerCase().indexOf("up") >= 0){snake.setDirection(0, -1)}
+					else if(phrases[i].toLowerCase().indexOf("down") >= 0){snake.setDirection(0, 1)}
+					else if(phrases[i].toLowerCase().indexOf("left") >= 0){snake.setDirection(-1, 0)}
+					else if(phrases[i].toLowerCase().indexOf("right") >= 0){snake.setDirection(1, 0)}
+				}
+			});
+			console.log("Setup Complete");
+		}
+		else {
+			alert("Speech recognition is unsupported.");
+		}
+	</script>
+</body>
+</html>
